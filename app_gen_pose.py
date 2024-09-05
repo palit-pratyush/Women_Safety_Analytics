@@ -21,8 +21,8 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
         super(CustomDepthwiseConv2D, self).__init__(*args, **kwargs)
 
 # Load the gender detection model
-gender_model = load_model("keras_Model.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
-class_names = open("labels.txt", "r").readlines()
+gender_model = load_model("gender.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
+class_names = open("labels_gender.txt", "r").readlines()
 
 # Load SSD model files for face detection
 ssd_prototxt = cv2.data.haarcascades + 'deploy.prototxt.txt'

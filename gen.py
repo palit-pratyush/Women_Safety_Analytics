@@ -16,10 +16,10 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
 np.set_printoptions(suppress=True)
 
 # Load the model using the custom layer definition
-model = load_model("keras_Model.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
+model = load_model("gender.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
 
 # Load the labels
-class_names = open("labels.txt", "r").readlines()
+class_names = open("labels_gender.txt", "r").readlines()
 
 # CAMERA can be 0 or 1 based on default camera of your computer
 camera = cv2.VideoCapture(0)

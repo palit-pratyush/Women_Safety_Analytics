@@ -15,10 +15,10 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
 app = Flask(__name__)
 
 # Load the gender detection model
-model = load_model("keras_Model.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
+model = load_model("gender.h5", custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D}, compile=False)
 
 # Load the labels
-class_names = open("labels.txt", "r").readlines()
+class_names = open("labels_gender.txt", "r").readlines()
 
 # Initialize webcam
 camera = cv2.VideoCapture(0)
