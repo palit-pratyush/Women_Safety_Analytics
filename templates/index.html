@@ -1,0 +1,20 @@
+<!-- app_gen.py -->
+<!-- app_gen_mul.py -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Detection from Webcam</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; }
+        img { margin-top: 20px; border: 2px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Gender Detection</h1>
+    <img id="videoFeed" src="{{ url_for('video_feed') }}" width="640" height="480">
+</body>
+</html>

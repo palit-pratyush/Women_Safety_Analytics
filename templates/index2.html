@@ -1,0 +1,41 @@
+<!-- app_count.py -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Detection</title>
+    <script>
+        function updateFaceCount() {
+            fetch('/face_count')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('male-count').innerText = data.face_count.Male;
+                    document.getElementById('female-count').innerText = data.face_count.Female;
+                    document.getElementById('male-ratio').innerText = (data.ratio.Male * 100).toFixed(2) + "%";
+                    document.getElementById('female-ratio').innerText = (data.ratio.Female * 100).toFixed(2) + "%";
+                })
+                .catch(error => console.error('Error fetching face count:', error));
+        }
+
+        // Update the counts every second
+        setInterval(updateFaceCount, 1000);
+    </script>
+</head>
+<body>
+    <h1>Real-time Gender Detection</h1>
+    <div>
+        <img src="{{ url_for('video_feed') }}" width="80%">
+    </div>
+    <div>
+        <h3>Face Count:</h3>
+        <p>Male: <span id="male-count">0</span></p>
+        <p>Female: <span id="female-count">0</span></p>
+        <h3>Gender Ratio:</h3>
+        <p>Male: <span id="male-ratio">0%</span></p>
+        <p>Female: <span id="female-ratio">0%</span></p>
+    </div>
+</body>
+</html>
