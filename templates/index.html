@@ -1,20 +1,95 @@
-<!-- app_gen.py -->
-<!-- app_gen_mul.py -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gender Detection from Webcam</title>
+    <title>Women-Safety-Analytics</title>
     <style>
-        body { display: flex; flex-direction: column; align-items: center; }
-        img { margin-top: 20px; border: 2px solid #ddd; }
+        /* Dynamic background gradient with darker colors including violet */
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(270deg, #1a2a6c, #b21f1f, #fdbb2d, #6c1a6c, #0f0c29);
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+            color: #ffffff; /* White text to contrast with the darker colors */
+        }
+
+        h1 {
+            color: #ffffff; /* White text for the title */
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px 0;
+        }
+
+        .video-container img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .averages {
+            margin-top: 20px;
+            text-align: center;
+            color: #ffffff; /* White text for better readability */
+        }
+
+        .averages div {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
-    <h1>Real-Time Gender Detection</h1>
-    <img id="videoFeed" src="{{ url_for('video_feed') }}" width="640" height="480">
+    <h1>PRAYAAS</h1>
+    <div class="video-container">
+        <img src="{{ url_for('video_feed') }}" alt="Video stream">
+    </div>
+    <div class="averages">
+        <div>Average Male Detection: <span id="avgMale">0</span></div>
+        <div>Average Female Detection: <span id="avgFemale">0</span></div>
+        <div>Male : Female Ratio: <span id="ratio">0</span></div>
+    </div>
+
+    <script>
+        // Function to fetch the averages from the Flask backend
+        async function fetchAverages() {
+            try {
+                const response = await fetch('/get_averages');
+                const data = await response.json();
+                document.getElementById('avgMale').innerText = data.avg_male.toFixed(2);
+                document.getElementById('avgFemale').innerText = data.avg_female.toFixed(2);
+                document.getElementById('ratio').innerText = (data.avg_male / data.avg_female).toFixed(2);
+            } catch (error) {
+                console.error('Error fetching averages:', error);
+            }
+        }
+
+        // Refresh averages every second
+        setInterval(fetchAverages, 1000);
+    </script>
 </body>
 </html>
